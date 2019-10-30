@@ -154,7 +154,7 @@ public class TFloat extends TNumber implements TComparable<TFloat> {
                 if (c < '0' || c > '9') {
                     break;
                 }
-                if (mantissa < 1E38) {
+                if (mantissa < 1E8) {
                     mantissa = mantissa * 10 + (c - '0');
                     --exp;
                 }
