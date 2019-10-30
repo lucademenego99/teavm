@@ -116,6 +116,10 @@ public class JCLPlugin implements TeaVMPlugin {
         TeaVMPluginUtil.handleNatives(host, System.class);
         TeaVMPluginUtil.handleNatives(host, Array.class);
         TeaVMPluginUtil.handleNatives(host, Math.class);
+        TeaVMPluginUtil.handleNatives(host, Double.class);
+        TeaVMPluginUtil.handleNatives(host, Long.class);
+        //TeaVMPluginUtil.handleNatives(host, DateTimeZoneProvider.class);
+        TeaVMPluginUtil.handleNatives(host, Integer.class);                
     }
 
     @PlatformMarker
