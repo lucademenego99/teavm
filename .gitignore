@@ -26,3 +26,5 @@ target
 !.idea/checkstyle-idea.xml
 
 dependency-reduced-pom.xml
+.vscode/launch.json
+.vscode/settings.json
