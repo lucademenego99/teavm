@@ -35,6 +35,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import org.teavm.ast.ClassNode;
+import org.teavm.ast.MethodNode;
+import org.teavm.ast.RegularMethodNode;
+import org.teavm.ast.Statement;
+import org.teavm.ast.analysis.LocationGraphBuilder;
 import org.teavm.ast.decompilation.Decompiler;
 import org.teavm.backend.javascript.codegen.AliasProvider;
 import org.teavm.backend.javascript.codegen.DefaultAliasProvider;
@@ -56,6 +60,8 @@ import org.teavm.cache.MethodNodeCache;
 import org.teavm.debugging.information.DebugInformationEmitter;
 import org.teavm.debugging.information.DummyDebugInformationEmitter;
 import org.teavm.debugging.information.SourceLocation;
+import org.teavm.dependency.AbstractDependencyListener;
+import org.teavm.dependency.DependencyAgent;
 import org.teavm.dependency.DependencyAnalyzer;
 import org.teavm.dependency.DependencyListener;
 import org.teavm.dependency.DependencyType;
@@ -96,6 +102,8 @@ import org.teavm.vm.spi.TeaVMHostExtension;
 public class JavaScriptTarget implements TeaVMTarget, TeaVMJavaScriptHost {
     private static final NumberFormat STATS_NUM_FORMAT = new DecimalFormat("#,##0");
     private static final NumberFormat STATS_PERCENT_FORMAT = new DecimalFormat("0.000 %");
+    private static final MethodReference CURRENT_THREAD = new MethodReference(Thread.class,
+            "currentThread", Thread.class);
 
     private TeaVMTargetController controller;
     private boolean minifying = true;
@@ -112,7 +120,6 @@ public class JavaScriptTarget implements TeaVMTarget, TeaVMJavaScriptHost {
     private ClassInitializerInsertionTransformer clinitInsertionTransformer;
     private List<VirtualMethodContributor> customVirtualMethods = new ArrayList<>();
     private boolean classScoped;
-
     @Override
     public List<ClassHolderTransformer> getTransformers() {
         return Collections.emptyList();
@@ -257,6 +264,17 @@ public class JavaScriptTarget implements TeaVMTarget, TeaVMJavaScriptHost {
         if (stackTraceIncluded) {
             includeStackTraceMethods(dependencyAnalyzer);
         }
+
+        dependencyAnalyzer.addDependencyListener(new AbstractDependencyListener() {
+            @Override
+            public void methodReached(DependencyAgent agent, MethodDependency method) {
+                if (method.getReference().equals(CURRENT_THREAD)) {
+                    method.use();
+                }
+                agent.linkMethod(new MethodReference(Thread.class, "setCurrentThread", Thread.class, void.class))
+                        .use();
+            }
+        });
     }
 
     public static void includeStackTraceMethods(DependencyAnalyzer dependencyAnalyzer) {
@@ -331,11 +349,16 @@ public class JavaScriptTarget implements TeaVMTarget, TeaVMJavaScriptHost {
         renderer.setMinifying(minifying);
         renderer.setProgressConsumer(controller::reportProgress);
         if (debugEmitter != null) {
-            for (String className : classes.getClassNames()) {
-                ClassHolder cls = classes.get(className);
-                for (MethodHolder method : cls.getMethods()) {
-                    if (method.getProgram() != null) {
-                        emitCFG(debugEmitter, method.getProgram());
+            for (ClassNode classNode : clsNodes) {
+                ClassHolder cls = classes.get(classNode.getName());
+                for (MethodNode methodNode : classNode.getMethods()) {
+                    if (methodNode instanceof RegularMethodNode) {
+                        emitCFG(debugEmitter, ((RegularMethodNode) methodNode).getBody());
+                    } else {
+                        MethodHolder method = cls.getMethod(methodNode.getReference().getDescriptor());
+                        if (method != null && method.getProgram() != null) {
+                            emitCFG(debugEmitter, method.getProgram());
+                        }
                     }
                 }
                 if (controller.wasCancelled()) {
@@ -358,6 +381,10 @@ public class JavaScriptTarget implements TeaVMTarget, TeaVMJavaScriptHost {
 
             renderer.prepare(clsNodes);
             runtimeRenderer.renderRuntime();
+            if (classScoped) {
+                sourceWriter.append("var ").append(Renderer.CONTAINER_OBJECT).ws().append("=").ws()
+                        .append("Object.create(null);").newLine();
+            }
             if (!renderer.render(clsNodes)) {
                 return;
             }
@@ -571,7 +598,14 @@ public class JavaScriptTarget implements TeaVMTarget, TeaVMJavaScriptHost {
     }
 
     private void emitCFG(DebugInformationEmitter emitter, Program program) {
-        Map<TextLocation, TextLocation[]> cfg = ProgramUtils.getLocationCFG(program);
+        emitCFG(emitter, ProgramUtils.getLocationCFG(program));
+    }
+
+    private void emitCFG(DebugInformationEmitter emitter, Statement program) {
+        emitCFG(emitter, LocationGraphBuilder.build(program));
+    }
+
+    private void emitCFG(DebugInformationEmitter emitter, Map<TextLocation, TextLocation[]> cfg) {
         for (Map.Entry<TextLocation, TextLocation[]> entry : cfg.entrySet()) {
             SourceLocation location = map(entry.getKey());
             SourceLocation[] successors = new SourceLocation[entry.getValue().length];

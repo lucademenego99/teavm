@@ -13,18 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.core;
+package org.teavm.model.optimization;
 
-import org.teavm.jso.JSBody;
-import org.teavm.jso.JSObject;
+import org.teavm.model.MethodReference;
+import org.teavm.model.ProgramReader;
 
-public final class JSON {
-    private JSON() {
-    }
-
-    @JSBody(params = "s", script = "return JSON.parse(s);")
-    public static native <T extends JSObject> T parse(String s);
-
-    @JSBody(params = "o", script = "JSON.stringify(o);")
-    public static native String stringify(JSObject o);
+public interface InliningStep {
+    InliningStep tryInline(MethodReference method, ProgramReader program, InliningContext context);
 }
