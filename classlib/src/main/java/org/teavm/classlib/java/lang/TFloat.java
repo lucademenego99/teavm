@@ -167,35 +167,37 @@ public class TFloat extends TNumber implements TComparable<TFloat> {
         }
         if (index < string.length()) {
             c = string.charAt(index);
-            if (c != 'e' && c != 'E') {
-                throw new TNumberFormatException();
-            }
-            ++index;
-            boolean negativeExp = false;
-            if (string.charAt(index) == '-') {
-                ++index;
-                negativeExp = true;
-            } else if (string.charAt(index) == '+') {
-                ++index;
-            }
-            int numExp = 0;
-            hasOneDigit = false;
-            while (index < string.length()) {
-                c = string.charAt(index);
-                if (c < '0' || c > '9') {
-                    break;
+            if (c != 'f' && c != 'F') { //make sure we accept values like 3.2f
+                if (c != 'e' && c != 'E') {
+                    throw new TNumberFormatException();
                 }
-                numExp = 10 * numExp + (c - '0');
-                hasOneDigit = true;
                 ++index;
+                boolean negativeExp = false;
+                if (string.charAt(index) == '-') {
+                    ++index;
+                    negativeExp = true;
+                } else if (string.charAt(index) == '+') {
+                    ++index;
+                }
+                int numExp = 0;
+                hasOneDigit = false;
+                while (index < string.length()) {
+                    c = string.charAt(index);
+                    if (c < '0' || c > '9') {
+                        break;
+                    }
+                    numExp = 10 * numExp + (c - '0');
+                    hasOneDigit = true;
+                    ++index;
+                }
+                if (!hasOneDigit) {
+                    throw new TNumberFormatException();
+                }
+                if (negativeExp) {
+                    numExp = -numExp;
+                }
+                exp += numExp;
             }
-            if (!hasOneDigit) {
-                throw new TNumberFormatException();
-            }
-            if (negativeExp) {
-                numExp = -numExp;
-            }
-            exp += numExp;
         }
         if (exp > 38 || exp == 38 && mantissa > 34028234) {
             return !negative ? POSITIVE_INFINITY : NEGATIVE_INFINITY;
