@@ -25,6 +25,7 @@ import org.teavm.backend.wasm.TeaVMWasmHost;
 import org.teavm.classlib.ReflectionSupplier;
 import org.teavm.classlib.impl.lambda.LambdaMetafactorySubstitutor;
 import org.teavm.classlib.impl.tz.DateTimeZoneProviderIntrinsic;
+import org.teavm.classlib.impl.tz.DateTimeZoneProvider;
 import org.teavm.classlib.impl.unicode.CLDRReader;
 import org.teavm.classlib.java.lang.reflect.AnnotationDependencyListener;
 import org.teavm.interop.PlatformMarker;
@@ -118,7 +119,7 @@ public class JCLPlugin implements TeaVMPlugin {
         TeaVMPluginUtil.handleNatives(host, Math.class);
         TeaVMPluginUtil.handleNatives(host, Double.class);
         TeaVMPluginUtil.handleNatives(host, Long.class);
-        //TeaVMPluginUtil.handleNatives(host, DateTimeZoneProvider.class);
+        TeaVMPluginUtil.handleNatives(host, DateTimeZoneProvider.class);
         TeaVMPluginUtil.handleNatives(host, Integer.class);                
     }
 
