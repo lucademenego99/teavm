@@ -35,7 +35,13 @@ import org.teavm.platform.PlatformClass;
 import org.teavm.vm.TeaVMPluginUtil;
 import org.teavm.vm.spi.TeaVMHost;
 import org.teavm.vm.spi.TeaVMPlugin;
+import org.teavm.platform.metadata.StringResource;
+import org.teavm.classlib.java.lang.*;
+import org.teavm.platform.plugin.MetadataRegistration;
+import org.teavm.platform.plugin.PlatformPlugin;
+import org.teavm.vm.spi.After;
 
+@After(PlatformPlugin.class)
 public class JCLPlugin implements TeaVMPlugin {
     @Override
     public void install(TeaVMHost host) {
@@ -120,7 +126,16 @@ public class JCLPlugin implements TeaVMPlugin {
         TeaVMPluginUtil.handleNatives(host, Double.class);
         TeaVMPluginUtil.handleNatives(host, Long.class);
         TeaVMPluginUtil.handleNatives(host, DateTimeZoneProvider.class);
-        TeaVMPluginUtil.handleNatives(host, Integer.class);                
+        TeaVMPluginUtil.handleNatives(host, Integer.class);
+
+        installMetadata(host.getService(MetadataRegistration.class));
+    }
+
+    private void installMetadata(MetadataRegistration reg) {
+        reg.register(new MethodReference(Character.class, "obtainDigitMapping", StringResource.class),
+                new CharacterMetadataGenerator());
+        reg.register(new MethodReference(Character.class, "obtainClasses", StringResource.class),
+                new CharacterMetadataGenerator());
     }
 
     @PlatformMarker

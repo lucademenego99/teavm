@@ -15,6 +15,7 @@
  */
 package org.teavm.vm.spi;
 
+import org.teavm.common.ServiceRepository;
 import java.util.Properties;
 import org.teavm.dependency.BootstrapMethodSubstitutor;
 import org.teavm.dependency.DependencyListener;
@@ -30,7 +31,7 @@ import org.teavm.vm.TeaVMBuilder;
  *
  * @author Alexey Andreev
  */
-public interface TeaVMHost {
+public interface TeaVMHost extends ServiceRepository{
     void add(DependencyListener dependencyListener);
 
     void add(ClassHolderTransformer classTransformer);

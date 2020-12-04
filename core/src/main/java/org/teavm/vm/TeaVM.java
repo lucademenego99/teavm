@@ -703,7 +703,8 @@ public class TeaVM implements TeaVMHost, ServiceRepository {
     public <T> T getService(Class<T> type) {
         Object service = services.get(type);
         if (service == null) {
-            throw new IllegalArgumentException("Service not registered: " + type.getName());
+
+            throw new IllegalArgumentException("Service not registered: " + type.getName() + "\n in" + services);
         }
         return type.cast(service);
     }

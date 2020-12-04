@@ -15,12 +15,15 @@
  */
 package org.teavm.platform.plugin;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.teavm.backend.javascript.spi.GeneratedBy;
 import org.teavm.diagnostics.Diagnostics;
 import org.teavm.model.AccessLevel;
 import org.teavm.model.AnnotationHolder;
 import org.teavm.model.AnnotationReader;
 import org.teavm.model.AnnotationValue;
+import org.teavm.model.MethodReference;
 import org.teavm.model.CallLocation;
 import org.teavm.model.ClassHierarchy;
 import org.teavm.model.ClassHolder;
@@ -37,12 +40,17 @@ import org.teavm.platform.metadata.ClassScopedMetadataProvider;
 import org.teavm.platform.metadata.MetadataProvider;
 
 class MetadataProviderTransformer implements ClassHolderTransformer {
+    private Set<MethodReference> metadataMethods = new HashSet<>();
+
+    void addMetadataMethod(MethodReference method) {
+        metadataMethods.add(method);
+    }
     @Override
     public void transformClass(ClassHolder cls, ClassHolderTransformerContext context) {
         int index = 0;
         for (MethodHolder method : cls.getMethods().toArray(new MethodHolder[0])) {
             AnnotationReader providerAnnot = method.getAnnotations().get(MetadataProvider.class.getName());
-            if (providerAnnot != null) {
+            if (metadataMethods.contains(method.getReference()) || providerAnnot != null) {
                 transformMetadataMethod(cls, method, context.getDiagnostics(), context.getHierarchy(), index++);
             }
             providerAnnot = method.getAnnotations().get(ClassScopedMetadataProvider.class.getName());

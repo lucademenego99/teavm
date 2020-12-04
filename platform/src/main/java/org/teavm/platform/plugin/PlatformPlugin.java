@@ -34,12 +34,19 @@ import org.teavm.platform.PlatformQueue;
 import org.teavm.vm.TeaVMPluginUtil;
 import org.teavm.vm.spi.TeaVMHost;
 import org.teavm.vm.spi.TeaVMPlugin;
+import org.teavm.platform.plugin.MetadataRegistration;
+import org.teavm.platform.metadata.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PlatformPlugin implements TeaVMPlugin {
+public class PlatformPlugin implements TeaVMPlugin, MetadataRegistration {
+    private MetadataProviderTransformer metadataTransformer = new MetadataProviderTransformer();
+    private List<MetadataGeneratorConsumer> metadataGeneratorConsumers = new ArrayList<>();
+
     @Override
     public void install(TeaVMHost host) {
         if (host.getExtension(TeaVMJavaScriptHost.class) != null) {
-            host.add(new MetadataProviderTransformer());
+            host.add(metadataTransformer);
             host.add(new ResourceTransformer());
             host.add(new ResourceAccessorTransformer(host));
             host.add(new ResourceAccessorDependencyListener());
@@ -110,6 +117,22 @@ public class PlatformPlugin implements TeaVMPlugin {
 
         TeaVMPluginUtil.handleNatives(host, Platform.class);
         TeaVMPluginUtil.handleNatives(host, PlatformQueue.class);
+
+        host.registerService(MetadataRegistration.class, this);
+    }
+
+    @Override
+    public void register(MethodReference method, MetadataGenerator generator) {
+        MethodReference constructor = new MethodReference(method.getClassName(), method.getName() + "$$create",
+                method.getSignature());
+        for (MetadataGeneratorConsumer consumer : metadataGeneratorConsumers) {
+            consumer.consume(constructor, method, generator);
+        }
+        metadataTransformer.addMetadataMethod(method);
+    }
+
+    interface MetadataGeneratorConsumer {
+        void consume(MethodReference constructor, MethodReference target, MetadataGenerator generator);
     }
 
     @PlatformMarker
