@@ -19,7 +19,7 @@
 
   <groupId>org.teavm</groupId>
   <artifactId>teavm</artifactId>
-  <version>0.6.0-for-javac-108</version>
+  <version>0.6.0-for-javac-109</version>
   <packaging>pom</packaging>
 
   <name>TeaVM</name>
