@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.teavm</groupId>
     <artifactId>teavm</artifactId>
-    <version>0.6.0-for-javac-109</version>
+    <version>0.6.0-for-javac-110</version>
     <relativePath>../..</relativePath>
   </parent>
   <artifactId>teavm-devserver</artifactId>
