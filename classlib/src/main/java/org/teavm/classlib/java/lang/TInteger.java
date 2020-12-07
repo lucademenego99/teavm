@@ -57,6 +57,13 @@ public class TInteger extends TNumber implements TComparable<TInteger> {
         return toString(i, 10);
     }
 
+    public static int getNumericValue(char ch) {
+        if (ch>='0' && ch<='9') return ch - '0';
+        if (ch>='a' && ch<='z') return 10 + ch - 'a';
+        if (ch>='A' && ch<='Z') return 10 + ch - 'A';
+        return -1;
+    }
+
     public static int parseInt(TString s, int radix) throws TNumberFormatException {
         if (radix < TCharacter.MIN_RADIX || radix > TCharacter.MAX_RADIX) {
             throw new TNumberFormatException(TString.wrap("Illegal radix: " + radix));
@@ -80,7 +87,7 @@ public class TInteger extends TNumber implements TComparable<TInteger> {
             throw new TNumberFormatException();
         }
         while (index < s.length()) {
-            int digit = TCharacter.getNumericValue(s.charAt(index++));
+            int digit = /*TCharacter.*/getNumericValue(s.charAt(index++));
             if (digit < 0) {
                 throw new TNumberFormatException(TString.wrap("String contains invalid digits: " + s));
             }

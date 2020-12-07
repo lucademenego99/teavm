@@ -128,14 +128,14 @@ public class JCLPlugin implements TeaVMPlugin {
         TeaVMPluginUtil.handleNatives(host, DateTimeZoneProvider.class);
         TeaVMPluginUtil.handleNatives(host, Integer.class);
 
-        installMetadata(host.getService(MetadataRegistration.class));
+        //installMetadata(host.getService(MetadataRegistration.class));
     }
 
     private void installMetadata(MetadataRegistration reg) {
-        reg.register(new MethodReference(Character.class, "obtainDigitMapping", StringResource.class),
+        /*reg.register(new MethodReference(Character.class, "obtainDigitMapping", StringResource.class),
                 new CharacterMetadataGenerator());
         reg.register(new MethodReference(Character.class, "obtainClasses", StringResource.class),
-                new CharacterMetadataGenerator());
+                new CharacterMetadataGenerator());*/
     }
 
     @PlatformMarker
