@@ -17,6 +17,7 @@ package org.teavm.classlib.java.lang;
 
 import java.util.Enumeration;
 import java.util.Properties;
+import org.lgdv.CodeBlocks;
 import org.teavm.backend.javascript.spi.GeneratedBy;
 import org.teavm.classlib.PlatformDetector;
 import org.teavm.classlib.java.io.TConsole;
@@ -228,5 +229,9 @@ public final class TSystem extends TObject {
 
     public static String lineSeparator() {
         return "\n";
+    }
+
+    public static void exit(int nr) {
+        CodeBlocks.postMessage("run-completed", -1, nr);
     }
 }

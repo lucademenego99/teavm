@@ -27,10 +27,27 @@ public class CodeBlocks {
         Window.worker().postMessage(message);
     }
 
-    public static CodeBlocksBaseMessage createBaseMessage(String cmd, int id){
+
+    public static void postMessage(String cmd, int id){
+        Window.worker().postMessage(createMessage(cmd, id));
+    }
+
+    public static CodeBlocksBaseMessage createMessage(String cmd, int id){
         CodeBlocksBaseMessage msg = createJSObject();
         msg.setCommand(cmd);
         msg.setId(""+id);
+        return msg;
+    }
+
+    public static void postMessage(String cmd, int id, int value){
+        Window.worker().postMessage(createMessage(cmd, id, value));
+    }
+
+    public static CodeBlocksInt1Message createMessage(String cmd, int id, int value){
+        CodeBlocksInt1Message msg = createJSObject();
+        msg.setCommand(cmd);
+        msg.setId(""+id);
+        msg.setValue(value);
         return msg;
     }
 }
