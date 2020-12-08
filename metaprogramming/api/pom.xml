@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.teavm</groupId>
     <artifactId>teavm</artifactId>
-    <version>0.6.0-for-javac-110</version>
+    <version>0.6.0-for-javac-111</version>
     <relativePath>../..</relativePath>
   </parent>
   <artifactId>teavm-metaprogramming-api</artifactId>

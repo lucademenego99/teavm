@@ -20,7 +20,7 @@
   <groupId>org.teavm</groupId>
   <artifactId>teavm-eclipse</artifactId>
   <packaging>pom</packaging>
-  <version>0.6.0-for-javac-110</version>
+  <version>0.6.0-for-javac-111</version>
 
   <name>TeaVM Eclipse integration</name>
   <description>Aggregate project containing all plugins for integration TeaVM with Eclipse</description>

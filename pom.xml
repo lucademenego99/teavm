@@ -19,7 +19,7 @@
 
   <groupId>org.teavm</groupId>
   <artifactId>teavm</artifactId>
-  <version>0.6.0-for-javac-110</version>
+  <version>0.6.0-for-javac-111</version>
   <packaging>pom</packaging>
 
   <name>TeaVM</name>
@@ -87,12 +87,12 @@
     <module>jso/core</module>
     <module>jso/apis</module>
     <module>jso/impl</module>
-    <module>html4j</module>
+    <!--<module>html4j</module>-->
     <module>platform</module>
     <module>tools/core</module>
     <module>tools/maven</module>
-    <module>tools/junit</module>
-    <module>extras-slf4j</module>
+    <!-- <module>tools/junit</module> -->
+    <!--<module>extras-slf4j</module>-->
     <module>metaprogramming/impl</module>
   </modules>
 
@@ -331,7 +331,7 @@
         </property>
       </activation>
       <modules>
-        <module>samples</module>
+        <!-- <module>samples</module>-->
       </modules>
     </profile>
 
