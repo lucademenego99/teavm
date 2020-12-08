@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.indexeddb;
+package org.unused.indexeddb;
 
 import org.teavm.jso.JSProperty;
 import org.teavm.jso.dom.events.EventListener;

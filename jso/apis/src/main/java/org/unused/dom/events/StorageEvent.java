@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Alexey Andreev.
+ *  Copyright 2020 frank.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,9 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.dom.events;
+package org.unused.dom.events;
 
 import org.teavm.jso.JSProperty;
+import org.teavm.jso.dom.events.Event;
 import org.unused.browser.Storage;
 
 /**

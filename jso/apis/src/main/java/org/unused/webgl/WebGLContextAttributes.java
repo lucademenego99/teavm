@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.webgl;
+package org.unused.webgl;
 
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;

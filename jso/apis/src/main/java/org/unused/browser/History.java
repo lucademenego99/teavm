@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015 Alexey Andreev.
+ *  Copyright 2020 frank.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,10 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.browser;
+package org.unused.browser;
 
 import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;
+import org.teavm.jso.browser.Window;
 
 public interface History extends JSObject {
     @JSProperty
@@ -40,6 +41,6 @@ public interface History extends JSObject {
     void replaceState(JSObject data, String title, String url);
 
     static History current() {
-        return Window.current().getHistory();
+        return null; //Window.current().getHistory();
     }
 }

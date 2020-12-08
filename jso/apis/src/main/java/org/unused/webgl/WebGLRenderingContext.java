@@ -13,18 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.webgl;
+package org.unused.webgl;
 
 import org.teavm.jso.JSByRef;
 import org.teavm.jso.JSMethod;
 import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;
-import org.teavm.jso.canvas.ImageData;
+import org.unused.canvas.ImageData;
 import org.teavm.jso.core.JSArrayReader;
 import org.teavm.jso.core.JSNumber;
 import org.teavm.jso.core.JSString;
-import org.teavm.jso.dom.html.HTMLCanvasElement;
-import org.teavm.jso.dom.html.HTMLImageElement;
+import org.unused.dom.html.HTMLCanvasElement;
+import org.unused.dom.html.HTMLImageElement;
 import org.teavm.jso.typedarrays.ArrayBuffer;
 import org.teavm.jso.typedarrays.ArrayBufferView;
 import org.teavm.jso.typedarrays.Float32Array;

@@ -21,10 +21,9 @@ import org.teavm.jso.JSProperty;
 import org.teavm.jso.core.JSArray;
 import org.teavm.jso.core.JSArrayReader;
 import org.teavm.jso.dom.html.HTMLDocument;
-import org.teavm.jso.dom.html.HTMLElement;
 import org.teavm.jso.dom.html.HTMLIFrameElement;
 
-public abstract class Window implements JSObject, WindowEventTarget, StorageProvider, JSArrayReader<HTMLIFrameElement> {
+public abstract class Window implements JSObject, WindowEventTarget/*, StorageProvider*/, JSArrayReader<HTMLIFrameElement> {
     private static Window cachedInstance;
 
     private Window() {
@@ -33,7 +32,7 @@ public abstract class Window implements JSObject, WindowEventTarget, StorageProv
     @JSProperty
     public abstract HTMLDocument getDocument();
 
-    @JSProperty
+    /*@JSProperty
     public abstract Screen getScreen();
 
     @JSProperty
@@ -97,7 +96,7 @@ public abstract class Window implements JSObject, WindowEventTarget, StorageProv
     }
 
     @JSBody(params = { "message", "defaultValue" }, script = "return prompt(message, defaultValue);")
-    public static native String prompt(String message, String defaultValue);
+    public static native String prompt(String message, String defaultValue);*/
 
     @JSBody(params = { "handler", "delay" }, script = "return setTimeout(handler, delay);")
     public static native int setTimeout(TimerHandler handler, int delay);
@@ -108,7 +107,7 @@ public abstract class Window implements JSObject, WindowEventTarget, StorageProv
     @JSBody(params = { "timeoutId" }, script = "clearTimeout(timeoutId);")
     public static native void clearTimeout(int timeoutId);
 
-    @JSBody(params = { "handler", "delay" }, script = "return setInterval(handler, delay);")
+    /*@JSBody(params = { "handler", "delay" }, script = "return setInterval(handler, delay);")
     public static native int setInterval(TimerHandler handler, int delay);
 
     @JSBody(params = { "handler", "delay" }, script = "return setInterval(handler, delay);")
@@ -151,7 +150,7 @@ public abstract class Window implements JSObject, WindowEventTarget, StorageProv
 
     public abstract void print();
 
-    public abstract void stop();
+    public abstract void stop();*/
 
     public abstract void postMessage(JSObject message);
 
@@ -169,7 +168,7 @@ public abstract class Window implements JSObject, WindowEventTarget, StorageProv
     @JSBody(script = "return self;")
     public static native Window worker();
 
-    @JSBody(params = "uri", script = "return encodeURI(uri);")
+    /*@JSBody(params = "uri", script = "return encodeURI(uri);")
     public static native String encodeURI(String uri);
 
     @JSBody(params = "uri", script = "return encodeURIComponent(uri);")
@@ -179,7 +178,7 @@ public abstract class Window implements JSObject, WindowEventTarget, StorageProv
     public static native String decodeURI(String uri);
 
     @JSBody(params = "uri", script = "return decodeURIComponent(uri);")
-    public static native String decodeURIComponent(String uri);
+    public static native String decodeURIComponent(String uri);*/
 
     @JSProperty
     public abstract double getDevicePixelRatio();

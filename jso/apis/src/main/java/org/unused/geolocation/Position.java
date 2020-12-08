@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.geolocation;
+package org.unused.geolocation;
 
 import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;

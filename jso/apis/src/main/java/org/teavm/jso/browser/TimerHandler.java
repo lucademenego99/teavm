@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.unused.browser;
+package org.teavm.jso.browser;
 
 import org.teavm.jso.JSFunctor;
 import org.teavm.jso.JSObject;

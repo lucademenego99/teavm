@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package org.teavm.jso.media;
+package org.unused.media;
 
 import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;

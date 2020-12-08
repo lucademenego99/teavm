@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015 Alexey Andreev.
+ *  Copyright 2020 frank.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,10 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.browser;
+package org.unused.browser;
 
 import org.teavm.jso.JSBody;
-import org.teavm.jso.geolocation.Geolocation;
+import org.unused.geolocation.Geolocation;
 
 public final class Navigator {
     private Navigator() {
