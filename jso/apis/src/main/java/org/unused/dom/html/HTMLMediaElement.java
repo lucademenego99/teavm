@@ -17,13 +17,13 @@ package org.teavm.jso.dom.html;
 
 import java.util.Date;
 import org.teavm.jso.JSProperty;
-import org.teavm.jso.media.AudioTrackList;
-import org.teavm.jso.media.MediaController;
-import org.teavm.jso.media.MediaError;
-import org.teavm.jso.media.TextTrack;
-import org.teavm.jso.media.TextTrackList;
-import org.teavm.jso.media.TimeRanges;
-import org.teavm.jso.media.VideoTrackList;
+import org.unused.media.AudioTrackList;
+import org.unused.media.MediaController;
+import org.unused.media.MediaError;
+import org.unused.media.TextTrack;
+import org.unused.media.TextTrackList;
+import org.unused.media.TimeRanges;
+import org.unused.media.VideoTrackList;
 
 /**
  *

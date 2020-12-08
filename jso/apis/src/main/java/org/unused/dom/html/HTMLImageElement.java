@@ -16,34 +16,42 @@
 package org.teavm.jso.dom.html;
 
 import org.teavm.jso.JSProperty;
+import org.unused.canvas.CanvasImageSource;
 
-/**
- *
- * @author Junji Takakura
- */
-public interface HTMLVideoElement extends HTMLMediaElement {
+public interface HTMLImageElement extends HTMLElement, CanvasImageSource {
+    @JSProperty
+    String getAlt();
+
+    @JSProperty
+    void setAlt(String alt);
 
     @JSProperty
     int getWidth();
 
     @JSProperty
-    int getHeight();
+    void setWidth(int width);
 
     @JSProperty
-    void setWidth(int width);
+    int getHeight();
 
     @JSProperty
     void setHeight(int height);
 
     @JSProperty
-    int getVideoWidth();
+    int getNaturalWidth();
 
     @JSProperty
-    int getVideoHeight();
+    int getNaturalHeight();
 
     @JSProperty
-    String getPoster();
+    String getSrc();
 
     @JSProperty
-    void setPoster(String poster);
+    void setSrc(String src);
+
+    @JSProperty
+    String getCrossOrigin();
+
+    @JSProperty
+    void setCrossOrigin(String crossOrigin);
 }

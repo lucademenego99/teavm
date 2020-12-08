@@ -1,5 +1,5 @@
 /*
- *  Copyright 2014 Alexey Andreev.
+ *  Copyright 2020 frank.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,28 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.dom.html;
+package org.teavm.jso.browser;
 
-import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;
-import org.teavm.jso.canvas.CanvasImageSource;
+import org.unused.browser.Storage;
 
-public interface HTMLCanvasElement extends HTMLElement, CanvasImageSource {
+/**
+ *
+ * @author Junji Takakura
+ */
+public interface StorageProvider {
     @JSProperty
-    int getWidth();
-
-    @JSProperty
-    void setWidth(int width);
-
-    @JSProperty
-    int getHeight();
+    Storage getSessionStorage();
 
     @JSProperty
-    void setHeight(int height);
-
-    JSObject getContext(String contextId);
-
-    JSObject getContext(String contextId, JSObject attributes);
-
-    String toDataURL(String type);
+    Storage getLocalStorage();
 }

@@ -13,45 +13,29 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.dom.html;
+package org.teavm.jso.dom.events;
 
 import org.teavm.jso.JSProperty;
-import org.teavm.jso.canvas.CanvasImageSource;
+import org.unused.browser.Storage;
 
-public interface HTMLImageElement extends HTMLElement, CanvasImageSource {
-    @JSProperty
-    String getAlt();
-
-    @JSProperty
-    void setAlt(String alt);
-
-    @JSProperty
-    int getWidth();
+/**
+ *
+ * @author Junji Takakura
+ */
+public interface StorageEvent extends Event {
 
     @JSProperty
-    void setWidth(int width);
+    String getKey();
 
     @JSProperty
-    int getHeight();
+    String getOldValue();
 
     @JSProperty
-    void setHeight(int height);
+    String getNewValue();
 
     @JSProperty
-    int getNaturalWidth();
+    String getUrl();
 
     @JSProperty
-    int getNaturalHeight();
-
-    @JSProperty
-    String getSrc();
-
-    @JSProperty
-    void setSrc(String src);
-
-    @JSProperty
-    String getCrossOrigin();
-
-    @JSProperty
-    void setCrossOrigin(String crossOrigin);
+    Storage getStorageArea();
 }

@@ -15,10 +15,36 @@
  */
 package org.teavm.jso.dom.html;
 
+import org.teavm.jso.JSProperty;
+import org.unused.dom.html.HTMLMediaElement;
+
 /**
  *
  * @author Junji Takakura
  */
-public interface HTMLAudioElement extends HTMLMediaElement {
+public interface HTMLVideoElement extends HTMLMediaElement {
 
+    @JSProperty
+    int getWidth();
+
+    @JSProperty
+    int getHeight();
+
+    @JSProperty
+    void setWidth(int width);
+
+    @JSProperty
+    void setHeight(int height);
+
+    @JSProperty
+    int getVideoWidth();
+
+    @JSProperty
+    int getVideoHeight();
+
+    @JSProperty
+    String getPoster();
+
+    @JSProperty
+    void setPoster(String poster);
 }

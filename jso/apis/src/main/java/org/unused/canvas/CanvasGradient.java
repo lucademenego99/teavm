@@ -13,29 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.jso.dom.events;
+package org.unused.canvas;
 
-import org.teavm.jso.JSProperty;
-import org.teavm.jso.browser.Storage;
+import org.teavm.jso.JSObject;
 
-/**
- *
- * @author Junji Takakura
- */
-public interface StorageEvent extends Event {
-
-    @JSProperty
-    String getKey();
-
-    @JSProperty
-    String getOldValue();
-
-    @JSProperty
-    String getNewValue();
-
-    @JSProperty
-    String getUrl();
-
-    @JSProperty
-    Storage getStorageArea();
+public interface CanvasGradient extends JSObject {
+    /**
+     * <p>The CanvasGradient.addColorStop() method adds a new stop, defined by an
+     * offset and a color, to the gradient. If the offset is not between 0 and 1,
+     * an INDEX_SIZE_ERR is raised, if the color can't be parsed as a CSS color,
+     * a SYNTAX_ERR is raised.</p>
+     *
+     * @param offset Offset between 0 and 1
+     * @param color A CSS parseable color.
+     */
+    void addColorStop(double offset, String color);
 }
