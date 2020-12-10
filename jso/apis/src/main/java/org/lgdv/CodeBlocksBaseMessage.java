@@ -25,8 +25,8 @@ public interface CodeBlocksBaseMessage extends JSObject {
     void setCommand(String command);
 
     @JSProperty
-    String getId();
+    int getId();
 
     @JSProperty
-    void setId(String id);
+    void setId(int id);
 }

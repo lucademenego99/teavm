@@ -18,35 +18,75 @@ package org.lgdv;
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;
 import org.teavm.jso.browser.Window;
+import org.teavm.jso.dom.events.EventListener;
+import org.teavm.jso.dom.events.MessageEvent;
 
 public class CodeBlocks {
     @JSBody(script = "return {  };")
     public static native <T extends JSObject> T createJSObject();
 
-    public static void postMessage(JSObject message){
+    public static void postMessage(CodeBlocksBaseMessage message){
+        if (!message.getCommand().startsWith("w-")){
+            message.setCommand("w-"+message.getCommand());
+        }
         Window.worker().postMessage(message);
     }
 
+    private static EventListener<?> listener;
+    public static void startReceivingEvents(CodeBlocksEventFunction handler){
+        if (listener != null) {
+            stopReceivingEvents();
+        }
+        listener = (MessageEvent event) -> {
+            CodeBlocksBaseMessage request = (CodeBlocksBaseMessage) event.getData();
+            String cmd = request.getCommand();
+            if (cmd.startsWith("d-")) {
+                cmd = cmd.substring(2);
+                request.setCommand(cmd);
+                handler.handleEvent(request);
+            }
+        };
+        Window.worker().addEventListener("message", listener);
+    }
+
+    public static void stopReceivingEvents(){
+        if (listener!=null) {
+            Window.worker().removeEventListener("message", listener);
+            listener = null;
+        }
+    }
 
     public static void postMessage(String cmd, int id){
-        Window.worker().postMessage(createMessage(cmd, id));
+        postMessage(createMessage(cmd, id));
     }
 
     public static CodeBlocksBaseMessage createMessage(String cmd, int id){
         CodeBlocksBaseMessage msg = createJSObject();
-        msg.setCommand(cmd);
-        msg.setId(""+id);
+        msg.setCommand("w-"+cmd);
+        msg.setId(id);
         return msg;
     }
 
     public static void postMessage(String cmd, int id, int value){
-        Window.worker().postMessage(createMessage(cmd, id, value));
+        postMessage(createMessage(cmd, id, value));
     }
 
     public static CodeBlocksInt1Message createMessage(String cmd, int id, int value){
         CodeBlocksInt1Message msg = createJSObject();
-        msg.setCommand(cmd);
-        msg.setId(""+id);
+        msg.setCommand("w-"+cmd);
+        msg.setId(id);
+        msg.setValue(value);
+        return msg;
+    }
+
+    public static void postMessage(String cmd, int id, String[] value){
+        postMessage(createMessage(cmd, id, value));
+    }
+
+    public static CodeBlocksStringArrayMessage createMessage(String cmd, int id, String[] value){
+        CodeBlocksStringArrayMessage msg = createJSObject();
+        msg.setCommand("w-"+cmd);
+        msg.setId(id);
         msg.setValue(value);
         return msg;
     }

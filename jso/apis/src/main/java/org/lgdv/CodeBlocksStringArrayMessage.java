@@ -16,11 +16,13 @@
 package org.lgdv;
 
 import org.teavm.jso.JSProperty;
+import org.teavm.jso.core.JSArray;
+import org.teavm.jso.core.JSString;
 
-public interface CodeBlocksInt1Message extends CodeBlocksBaseMessage{
+public interface CodeBlocksStringArrayMessage extends CodeBlocksBaseMessage{
     @JSProperty
-    int getValue();
+    String[] getValue();
 
     @JSProperty
-    void setValue(int value);
+    void setValue(String[] value);
 }

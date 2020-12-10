@@ -232,6 +232,6 @@ public final class TSystem extends TObject {
     }
 
     public static void exit(int nr) {
-        CodeBlocks.postMessage("run-completed", -1, nr);
+        CodeBlocks.postMessage("exit-keepalive", -1, nr);
     }
 }
