@@ -498,6 +498,7 @@ function $rt_threadStarter(f) {
         });
     }
 }
+
 function $rt_mainStarter(f) {
     return function(args, callback) {
         if (!args) {
@@ -507,7 +508,17 @@ function $rt_mainStarter(f) {
         for (var i = 0; i < args.length; ++i) {
             javaArgs.data[i] = $rt_str(args[i]);
         }
-        $rt_startThread(function() { f.call(null, javaArgs); }, callback);
+        if (typeof $rt_last_run_args == "object") {
+            $rt_last_run_args = javaArgs;
+        }
+        $rt_startThread(function() { f.call(null, javaArgs); }, function() {
+            if (typeof $rt_last_run_args == "object") {
+                $rt_last_run_args = javaArgs;
+            }
+            if (callback) {
+                callback()
+            }
+        });
     }
 }
 var $rt_stringPool_instance;
