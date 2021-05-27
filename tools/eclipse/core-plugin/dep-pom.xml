@@ -19,7 +19,7 @@
 
   <groupId>org.teavm</groupId>
   <artifactId>teavm-eclipse-core-deps</artifactId>
-  <version><!-- update -->0.6.0-for-javac-111</version>
+  <version><!-- update -->0.6.0-for-javac-113</version>
   <packaging>pom</packaging>
 
   <name>TeaVM dependencies for Eclipse plugin</name>
