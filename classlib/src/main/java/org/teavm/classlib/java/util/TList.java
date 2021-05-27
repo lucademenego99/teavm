@@ -15,6 +15,7 @@
  */
 package org.teavm.classlib.java.util;
 
+import org.teavm.classlib.java.util.function.TConsumer;
 import org.teavm.classlib.java.util.function.TUnaryOperator;
 
 public interface TList<E> extends TCollection<E> {
@@ -42,6 +43,13 @@ public interface TList<E> extends TCollection<E> {
         TListIterator<E> iter = listIterator();
         while (iter.hasNext()) {
             iter.set(operator.apply(iter.next()));
+        }
+    }
+
+    default void forEach(TConsumer<? super E> action) {
+        TListIterator<E> iter = listIterator();
+        while (iter.hasNext()) {
+            action.accept(iter.next());
         }
     }
 

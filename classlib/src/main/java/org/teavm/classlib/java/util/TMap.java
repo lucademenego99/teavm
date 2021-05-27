@@ -15,11 +15,12 @@
  */
 package org.teavm.classlib.java.util;
 
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public interface TMap<K, V> {
-    interface Entry<K1, V1> {
+    public interface Entry<K1, V1> {
         K1 getKey();
 
         V1 getValue();
@@ -133,5 +134,13 @@ public interface TMap<K, V> {
             put(key, newValue);
         }
         return newValue;
+    }
+
+    default void forEach(BiConsumer<? super K,? super V> action){
+        TIterator<Entry<K, V>> iter = entrySet().iterator();
+        while (iter.hasNext()) {
+            Entry<K, V> e = iter.next();
+            action.accept(e.getKey(), e.getValue());
+        }
     }
 }
