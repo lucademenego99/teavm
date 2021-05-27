@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 frank.
+ *  Copyright 2021 frank.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,11 +16,13 @@
 package org.lgdv;
 
 import org.teavm.jso.JSProperty;
+import org.teavm.jso.core.JSArray;
+import org.teavm.jso.core.JSString;
 
-public interface CodeBlocksStringArrayMessage extends CodeBlocksBaseMessage{
+public interface CodeBlocksStringMessage extends CodeBlocksBaseMessage{
     @JSProperty
-    String[] getValue();
+    String getValue();
 
     @JSProperty
-    void setValue(String[] value);
+    void setValue(String value);
 }

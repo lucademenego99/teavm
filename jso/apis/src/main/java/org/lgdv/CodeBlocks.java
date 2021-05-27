@@ -15,6 +15,7 @@
  */
 package org.lgdv;
 
+import org.lgdv.math.Vec2D;
 import org.teavm.jso.JSBody;
 import org.teavm.jso.JSObject;
 import org.teavm.jso.browser.Window;
@@ -24,6 +25,14 @@ import org.teavm.jso.dom.events.MessageEvent;
 public class CodeBlocks {
     @JSBody(script = "return {  };")
     public static native <T extends JSObject> T createJSObject();
+
+    public static void postResult(String jsonObject){
+        CodeBlocksStringMessage msg = createJSObject();
+        msg.setCommand("f-FINAL");
+        msg.setId(-1);
+        msg.setValue(jsonObject);
+        Window.worker().postMessage(msg);
+    }
 
     public static void postMessage(CodeBlocksBaseMessage message){
         if (!message.getCommand().startsWith("w-")){
@@ -71,8 +80,56 @@ public class CodeBlocks {
         postMessage(createMessage(cmd, id, value));
     }
 
-    public static CodeBlocksInt1Message createMessage(String cmd, int id, int value){
-        CodeBlocksInt1Message msg = createJSObject();
+    public static CodeBlocksIntMessage createMessage(String cmd, int id, int value){
+        CodeBlocksIntMessage msg = createJSObject();
+        msg.setCommand("w-"+cmd);
+        msg.setId(id);
+        msg.setValue(value);
+        return msg;
+    }
+
+    public static void postMessage(String cmd, int id, int[] value){
+        postMessage(createMessage(cmd, id, value));
+    }
+
+    public static CodeBlocksIntArrayMessage createMessage(String cmd, int id, int[] value){
+        CodeBlocksIntArrayMessage msg = createJSObject();
+        msg.setCommand("w-"+cmd);
+        msg.setId(id);
+        msg.setValue(value);
+        return msg;
+    }
+
+    public static void postMessage(String cmd, int id, double value){
+        postMessage(createMessage(cmd, id, value));
+    }
+
+    public static CodeBlocksDoubleMessage createMessage(String cmd, int id, double value){
+        CodeBlocksDoubleMessage msg = createJSObject();
+        msg.setCommand("w-"+cmd);
+        msg.setId(id);
+        msg.setValue(value);
+        return msg;
+    }
+
+    public static void postMessage(String cmd, int id, double[] value){
+        postMessage(createMessage(cmd, id, value));
+    }
+
+    public static CodeBlocksDoubleArrayMessage createMessage(String cmd, int id, double[] value){
+        CodeBlocksDoubleArrayMessage msg = createJSObject();
+        msg.setCommand("w-"+cmd);
+        msg.setId(id);
+        msg.setValue(value);
+        return msg;
+    }
+
+    public static void postMessage(String cmd, int id, String value){
+        postMessage(createMessage(cmd, id, value));
+    }
+
+    public static CodeBlocksStringMessage createMessage(String cmd, int id, String value){
+        CodeBlocksStringMessage msg = createJSObject();
         msg.setCommand("w-"+cmd);
         msg.setId(id);
         msg.setValue(value);
@@ -89,5 +146,9 @@ public class CodeBlocks {
         msg.setId(id);
         msg.setValue(value);
         return msg;
+    }
+
+    public static void postMessage(String cmd, int id, Vec2D value){
+        postMessage(createMessage(cmd, id, value.toJSON()));
     }
 }

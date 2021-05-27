@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 frank.
+ *  Copyright 2021 frank.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@ package org.lgdv;
 
 import org.teavm.jso.JSProperty;
 
-public interface CodeBlocksInt1Message extends CodeBlocksBaseMessage{
+public interface CodeBlocksDoubleMessage  extends CodeBlocksBaseMessage{
     @JSProperty
-    int getValue();
+    double getValue();
 
     @JSProperty
-    void setValue(int value);
+    void setValue(double value);
 }
