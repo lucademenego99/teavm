@@ -199,21 +199,33 @@ public class MapGame {
 
     public Figure createFigureOnTile(String type, int c, int r) {
         Figure f = new Figure(this, type, c, r);
-        postCreateMessage(f, "createFigureOnTile");
+        postCreateMessage(f, "createFigureOnTile", false, 0);
         figures.add(f);
         return f;
     }
 
     public Sprite createSpriteOnTile(String type, int c, int r) {
         Sprite s = new Sprite(this, type, c, r);
-        postCreateMessage(s, "createSpriteOnTile");
+        postCreateMessage(s, "createSpriteOnTile", false, 0);
         sprites.add(s);
         return s;
     }
 
     public AnimatedSprite createAnimatedSpriteOnTile(String type, int c, int r) {
+        return createAnimatedSpriteOnTile(type, c, r, true, 0);
+    }
+
+    public AnimatedSprite createAnimatedSpriteOnTile(String type, int c, int r, boolean start) {
+        return createAnimatedSpriteOnTile(type, c, r, start, 0);
+    }
+
+    public AnimatedSprite createAnimatedSpriteOnTile(String type, int c, int r, int frame) {
+        return createAnimatedSpriteOnTile(type, c, r, false, frame);
+    }
+
+    public AnimatedSprite createAnimatedSpriteOnTile(String type, int c, int r, boolean start, int frame) {
         AnimatedSprite s = new AnimatedSprite(this, type, c, r);
-        postCreateMessage(s, "createSpriteOnTile");
+        postCreateMessage(s, "createSpriteOnTile", start, frame);
         sprites.add(s);
         return s;
     }
@@ -236,13 +248,15 @@ public class MapGame {
         postRemoveMessage(s);
     }
 
-    private void postCreateMessage(Sprite s, String createSpriteOnTile) {
-        RPCNewMessage reply = CodeBlocks.createJSObject();
+    private void postCreateMessage(Sprite s, String createSpriteOnTile, boolean start, int frame) {
+        RPCNewAnimationMessage reply = CodeBlocks.createJSObject();
         reply.setCommand(createSpriteOnTile);
         reply.setC(s.getColumn());
         reply.setR(s.getRow());
         reply.setID(s.uID);
         reply.setType(s.type);
+        reply.setStart(start);
+        reply.setFrame(frame);
         CodeBlocks.postMessage(reply);
     }
 
