@@ -1,5 +1,5 @@
 /*
- *  Copyright 2021 frank.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,14 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.lgdv;
+package de.fau.tf.lgdv;
 
 import org.teavm.jso.JSProperty;
 
-public interface CodeBlocksDoubleArrayMessage  extends CodeBlocksBaseMessage{
+public interface CodeBlocksIntArrayMessage extends CodeBlocksBaseMessage{
     @JSProperty
-    double[] getValue();
+    int[] getValue();
 
     @JSProperty
-    void setValue(double[] value);
+    void setValue(int[] value);
 }
+

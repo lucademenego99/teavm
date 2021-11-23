@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 frank.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,20 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.lgdv;
-import org.teavm.jso.JSObject;
-import org.teavm.jso.JSProperty;
+package de.fau.tf.lgdv.phaser;
 
-public interface CodeBlocksBaseMessage extends JSObject {
-    @JSProperty
-    String getCommand();
-
-    @JSProperty
-    void setCommand(String command);
-
-    @JSProperty
-    int getId();
-
-    @JSProperty
-    void setId(int id);
+public interface FigureEventHandler {
+    void onEnterTile(Figure f, int c, int r);
+    void onLeaveTile(Figure f, int c, int r);
+    void onFinishedWalking(Figure f);
 }

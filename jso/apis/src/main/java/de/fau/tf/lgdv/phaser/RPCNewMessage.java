@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 frank.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,12 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.lgdv;
+package de.fau.tf.lgdv.phaser;
 
-import org.teavm.jso.JSFunctor;
-import org.teavm.jso.JSObject;
-import org.teavm.jso.dom.events.Event;
+import org.teavm.jso.JSProperty;
 
-public interface CodeBlocksEventFunction {
-    void handleEvent(CodeBlocksBaseMessage msg);
+interface RPCNewMessage extends RPCTileMessage {
+    @JSProperty
+    String getType();
+
+    @JSProperty
+    void setType(String value);
 }

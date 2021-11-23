@@ -17,7 +17,7 @@ package org.teavm.classlib.java.lang;
 
 import java.util.Enumeration;
 import java.util.Properties;
-import org.lgdv.CodeBlocks;
+import de.fau.tf.lgdv.CodeBlocks;
 import org.teavm.backend.javascript.spi.GeneratedBy;
 import org.teavm.classlib.PlatformDetector;
 import org.teavm.classlib.java.io.TConsole;

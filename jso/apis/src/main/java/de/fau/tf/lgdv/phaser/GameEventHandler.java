@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 frank.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,14 +13,8 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.lgdv;
+package de.fau.tf.lgdv.phaser;
 
-import org.teavm.jso.JSProperty;
-
-public interface CodeBlocksStringArrayMessage extends CodeBlocksBaseMessage{
-    @JSProperty
-    String[] getValue();
-
-    @JSProperty
-    void setValue(String[] value);
+public interface GameEventHandler {
+    void onClick(int c, int r);
 }

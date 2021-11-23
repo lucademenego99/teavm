@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 frank bauer.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,11 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.platform.plugin;
+package de.fau.tf.lgdv.phaser;
 
-import org.teavm.model.MethodReference;
-import org.teavm.platform.metadata.MetadataGenerator;
+public class Figure extends Sprite{
+    Figure(MapGame mapGame, String type, int c, int r) {
+       super("figure_", mapGame, type, c, r);
+    }
 
-public interface MetadataRegistration {
-    void register(MethodReference method, MetadataGenerator generator);
+    protected void onEnterTile(int c, int r) { }
+    protected void onLeaveTile(int c, int r) { }
+    protected void onFinishedWalking() {}
+
+    public void walkToTile(int c, int r) {
+        postMoveCommand(c, r, "walkToTile");
+    }
+
+    public void walkTo(int c, int r) {
+        postMoveCommand(c, r, "walkTo");
+    }
 }

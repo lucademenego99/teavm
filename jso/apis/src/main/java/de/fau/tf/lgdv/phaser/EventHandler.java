@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 frank bauer.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,11 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.platform.plugin;
+package de.fau.tf.lgdv.phaser;
 
-import org.teavm.model.MethodReference;
-import org.teavm.platform.metadata.MetadataGenerator;
+import de.fau.tf.lgdv.CodeBlocksBaseMessage;
 
-public interface MetadataRegistration {
-    void register(MethodReference method, MetadataGenerator generator);
+public interface EventHandler {
+    void onMessage(CodeBlocksBaseMessage request);
 }

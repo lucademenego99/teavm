@@ -1,5 +1,5 @@
 /*
- *  Copyright 2021 frank.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,14 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.lgdv;
-
+package de.fau.tf.lgdv;
+import org.teavm.jso.JSObject;
 import org.teavm.jso.JSProperty;
 
-public interface CodeBlocksDoubleMessage  extends CodeBlocksBaseMessage{
+public interface CodeBlocksBaseMessage extends JSObject {
     @JSProperty
-    double getValue();
+    String getCommand();
 
     @JSProperty
-    void setValue(double value);
+    void setCommand(String command);
+
+    @JSProperty
+    int getId();
+
+    @JSProperty
+    void setId(int id);
 }

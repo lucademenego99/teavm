@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 frank bauer.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,11 +13,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.teavm.platform.plugin;
+package de.fau.tf.lgdv.math;
 
-import org.teavm.model.MethodReference;
-import org.teavm.platform.metadata.MetadataGenerator;
+import de.fau.tf.lgdv.JSON;
 
-public interface MetadataRegistration {
-    void register(MethodReference method, MetadataGenerator generator);
+/**
+ * Store an integer size
+ * 
+ * @author frank
+ *
+ */
+public class Size implements JSON.Stringable {
+    public final int width;
+    public final int height;
+
+    public Size(int w, int h) {
+        this.width = w;
+        this.height = h;
+    }
+
+    public String toJSON(){
+        return "{\"width\":"+width+", \"height\":"+height+"}";
+    }
 }

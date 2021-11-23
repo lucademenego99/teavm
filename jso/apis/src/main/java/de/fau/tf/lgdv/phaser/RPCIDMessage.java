@@ -1,5 +1,5 @@
 /*
- *  Copyright 2021 frank.
+ *  Copyright 2021 frank bauer.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,16 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.lgdv;
+package de.fau.tf.lgdv.phaser;
 
+import de.fau.tf.lgdv.CodeBlocksBaseMessage;
 import org.teavm.jso.JSProperty;
-import org.teavm.jso.core.JSArray;
-import org.teavm.jso.core.JSString;
 
-public interface CodeBlocksStringMessage extends CodeBlocksBaseMessage{
+interface RPCIDMessage extends CodeBlocksBaseMessage {
     @JSProperty
-    String getValue();
+    String getID();
 
     @JSProperty
-    void setValue(String value);
+    void setID(String value);
 }
