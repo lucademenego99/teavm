@@ -207,6 +207,7 @@ public class MapGame {
     void register(Figure f) {
         postCreateMessage(f, "createFigureOnTile", false, 0);
         figures.add(f);
+        f.sendBaseSpeed();
     }
 
     public Sprite createSpriteOnTile(String type, int c, int r) {

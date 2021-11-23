@@ -15,7 +15,10 @@
  */
 package de.fau.tf.lgdv.phaser;
 
+import de.fau.tf.lgdv.CodeBlocks;
+
 public class Figure extends Sprite{
+    private double baseSpeed = 5;
     public Figure(MapGame mapGame, String type, int c, int r){
         this(mapGame, true, type, c, r);
     }
@@ -33,5 +36,29 @@ public class Figure extends Sprite{
 
     public void walkTo(int c, int r) {
         postMoveCommand(c, r, "walkTo");
+    }
+
+    void sendBaseSpeed(){
+        this.setBaseSpeed(baseSpeed);
+    }
+
+    public void setBaseSpeed(double speed){
+        baseSpeed = speed;
+        RPCSpeedMessage reply = CodeBlocks.createJSObject();
+        reply.setCommand("setBaseSpeed");
+        reply.setSpeed(speed);
+        reply.setID(this.uID);
+        CodeBlocks.postMessage(reply);
+    }
+
+    public void stopWalking(){
+        RPCIDMessage reply = CodeBlocks.createJSObject();
+        reply.setCommand("stopWalking");
+        reply.setID(this.uID);
+        CodeBlocks.postMessage(reply);
+    }
+
+    public double getBaseSpeed(){
+        return baseSpeed;
     }
 }
