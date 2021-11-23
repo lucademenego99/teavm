@@ -17,6 +17,7 @@ package de.fau.tf.lgdv.phaser;
 
 import de.fau.tf.lgdv.CodeBlocks;
 import de.fau.tf.lgdv.CodeBlocksBaseMessage;
+import java.util.stream.Stream;
 
 public class MapGame {
     public final int rows;
@@ -198,17 +199,29 @@ public class MapGame {
     }
 
     public Figure createFigureOnTile(String type, int c, int r) {
-        Figure f = new Figure(this, type, c, r);
-        postCreateMessage(f, "createFigureOnTile", false, 0);
-        figures.add(f);
+        Figure f = new Figure(this, false, type, c, r);
+        register(f);
         return f;
     }
 
+    void register(Figure f) {
+        postCreateMessage(f, "createFigureOnTile", false, 0);
+        figures.add(f);
+    }
+
     public Sprite createSpriteOnTile(String type, int c, int r) {
-        Sprite s = new Sprite(this, type, c, r);
-        postCreateMessage(s, "createSpriteOnTile", false, 0);
-        sprites.add(s);
+        Sprite s = new Sprite(this, false, type, c, r);
+        register(s, false, 0);
         return s;
+    }
+
+    void register(Sprite s) {
+        register(s, true, 0);
+    }
+
+    void register(Sprite s, boolean start, int frame) {
+        postCreateMessage(s, "createSpriteOnTile", start, frame);
+        sprites.add(s);
     }
 
     public AnimatedSprite createAnimatedSpriteOnTile(String type, int c, int r) {
@@ -224,9 +237,8 @@ public class MapGame {
     }
 
     public AnimatedSprite createAnimatedSpriteOnTile(String type, int c, int r, boolean start, int frame) {
-        AnimatedSprite s = new AnimatedSprite(this, type, c, r);
-        postCreateMessage(s, "createSpriteOnTile", start, frame);
-        sprites.add(s);
+        AnimatedSprite s = new AnimatedSprite(this, false, type, c, r);
+        register(s, start, frame);
         return s;
     }
 
@@ -265,5 +277,31 @@ public class MapGame {
         reply.setCommand("remove");
         reply.setID(s.uID);
         CodeBlocks.postMessage(reply);
+    }
+
+    @Override
+    public String toString() {
+        return "MapGame{" +
+                "rows=" + rows +
+                ", columns=" + columns +
+                ", figures=" + figures.size() +
+                ", sprites=" + sprites.size() +
+                '}';
+    }
+
+    public Stream<Figure> getFigureStream(){
+        return figures.stream();
+    }
+
+    public int getFigureCount(){
+        return figures.size();
+    }
+
+    public Stream<Sprite> getSpriteStream(){
+        return sprites.stream();
+    }
+
+    public int getSpriteCount(){
+        return sprites.size();
     }
 }

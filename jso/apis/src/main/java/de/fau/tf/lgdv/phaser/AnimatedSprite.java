@@ -18,8 +18,28 @@ package de.fau.tf.lgdv.phaser;
 import de.fau.tf.lgdv.CodeBlocks;
 
 public class AnimatedSprite extends Sprite{
-    AnimatedSprite(MapGame mapGame, String type, int c, int r) {
-        super("sprite_", mapGame, type, c, r);
+    public AnimatedSprite(MapGame mapGame, String type, int c, int r) {
+        this(mapGame, type, c, r, true, 0);
+    }
+
+    public AnimatedSprite(MapGame mapGame, String type, int c, int r, boolean start, int frame) {
+        this(mapGame, false, type, c, r);
+        if (mapGame != null ) {
+            mapGame.register(this, start, frame);
+        }
+    }
+
+    public AnimatedSprite(MapGame mapGame, String type, int c, int r, boolean start) {
+        this(mapGame,  type, c, r, start, 0);
+
+    }
+
+    public  AnimatedSprite(MapGame mapGame, String type, int c, int r, int frame) {
+        this(mapGame, type, c, r, false, frame);
+    }
+
+    AnimatedSprite(MapGame mapGame, boolean registerWithGame, String type, int c, int r) {
+        super("animated_", mapGame, registerWithGame, type, c, r);
     }
 
     protected void onFinishedAnimation(){}

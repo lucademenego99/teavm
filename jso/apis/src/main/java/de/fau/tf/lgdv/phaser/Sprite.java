@@ -26,17 +26,28 @@ public class Sprite {
     int column;
     private boolean removed;
 
-    Sprite(MapGame mapGame, String type, int c, int r) {
-        this("sprite_", mapGame, type, c, r);
+    public Sprite(MapGame mapGame, String type, int c, int r) {
+        this(mapGame, true, type, c, r);
     }
 
-    protected Sprite(String uIDPrefix, MapGame mapGame, String type, int c, int r){
+    Sprite(MapGame mapGame, boolean registerWithGame, String type, int c, int r) {
+        this("sprite_", mapGame, registerWithGame, type, c, r);
+    }
+
+    protected Sprite(String uIDPrefix, MapGame mapGame, boolean registerWithGame, String type, int c, int r) {
         this.type = type;
         this.uID = uIDPrefix + serial++;
         this.row = r;
         this.column = c;
         this.mapGame = mapGame;
-        System.out.println("Created:" + this.uID);
+
+        if (mapGame != null && registerWithGame) {
+            if (this instanceof Figure){
+                mapGame.register((Figure)this);
+            } else {
+                mapGame.register(this);
+            }
+        }
     }
 
     public int getColumn() {
@@ -47,7 +58,7 @@ public class Sprite {
         return row;
     }
 
-    public boolean wasRemoved(){
+    public boolean wasRemoved() {
         return removed;
     }
 
@@ -61,8 +72,12 @@ public class Sprite {
         postMoveCommand(x, y, "moveTo");
     }
 
-    public void remove(){
-        mapGame._remove(this);
+    public void remove() {
+        if (this instanceof Figure){
+            mapGame._remove((Figure)this);
+        } else {
+            mapGame._remove(this);
+        }
         removed = true;
     }
 
@@ -73,5 +88,17 @@ public class Sprite {
         reply.setR(y);
         reply.setID(this.uID);
         CodeBlocks.postMessage(reply);
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "{" +
+                "uID='" + uID + '\'' +
+                ", type='" + type + '\'' +
+                ", removed=" + removed +
+                ", row=" + row +
+                ", column=" + column +
+
+                '}';
     }
 }

@@ -16,8 +16,11 @@
 package de.fau.tf.lgdv.phaser;
 
 public class Figure extends Sprite{
-    Figure(MapGame mapGame, String type, int c, int r) {
-       super("figure_", mapGame, type, c, r);
+    public Figure(MapGame mapGame, String type, int c, int r){
+        this(mapGame, true, type, c, r);
+    }
+    Figure(MapGame mapGame, boolean registerWithGame, String type, int c, int r) {
+       super("figure_", mapGame, registerWithGame, type, c, r);
     }
 
     protected void onEnterTile(int c, int r) { }
