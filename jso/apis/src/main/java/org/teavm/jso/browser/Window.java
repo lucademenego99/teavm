@@ -168,6 +168,12 @@ public abstract class Window implements JSObject, WindowEventTarget/*, StoragePr
     @JSBody(script = "return self;")
     public static native Window worker();
 
+    @JSProperty
+    public abstract MessagePort getPort();
+
+    @JSProperty()
+    public abstract void setPort(MessagePort port);
+
     /*@JSBody(params = "uri", script = "return encodeURI(uri);")
     public static native String encodeURI(String uri);
 

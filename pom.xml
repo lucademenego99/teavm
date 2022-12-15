@@ -338,7 +338,7 @@
     <profile>
       <id>with-cli</id>
       <modules>
-        <module>tools/cli</module>
+        <!-- <module>tools/cli</module> -->
       </modules>
     </profile>
     
